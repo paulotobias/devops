@@ -1,11 +1,11 @@
 name: 'Pipeline 04/07'
 on:  #formato da nossa pipeline, trigger, o que aciona
   # Habilita botão na interface web para acionar manualmente a pipeline
-  workflow_dispatch:
+  
   push: #adicionar essa opção executa automatico no push sem rpecisar clicar no botão
     branches: 
       - main
-
+  workflow_dispatch:
 
 ## Nossos Jobs, etapas
 
