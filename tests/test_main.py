@@ -19,10 +19,10 @@ def test_index():
 
 
 def test_put():
-    requisicao = CLIENT.post("/tarefas?id=0&titulo=tarefa_teste&descricao=descricao")
+    requisicao = CLIENT.post("/tarefas?id=0&titulo=tarefa&descricao=descricao")
     assert requisicao.status_code == 201
     assert requisicao.json() == {"mensagem": "OK"} 
 
-    requisicao = CLIENT.post("/tarefas?id=0&titulo=tarefa_teste&descricao=descricao")
+    requisicao = CLIENT.post("/tarefas?id=0&titulo=tarefa&descricao=descricao")
     assert requisicao.status_code == 202
     assert requisicao.json()['detail'] == {"mensagem": "TAREFA JÁ EXISTE!"}
