@@ -1,0 +1,19 @@
+name: 'Pipeline 04/07'
+on:  #formato da nossa pipeline, trigger, o que aciona
+  # Habilita botão na interface web para acionar manualmente a pipeline
+  workflow_dispatch:
+
+
+## Nossos Jobs, etapas
+
+jobs:
+  integracao:
+    name: 'Integração' #nome que aparece na interface grafica
+    runs-on: ubuntu-latest # qual S.O quer que excute, gitlab vai proporcionar esse sistema
+    steps: 
+        # equivalente ao git clone - 1 etapa
+      - uses: actions/checkout@v4 
+      - name: 'Instalação de dependencias'
+        run: pip install -r requirements.txt
+      - name: 'Testes unitários'
+        run pytest
