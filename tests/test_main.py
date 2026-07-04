@@ -67,3 +67,8 @@ def test_verificar_tarefa_especifica():
     requisicao = CLIENT.get("/tarefas/5")
 
     assert requisicao.json() == {"mensagem": "Não existe nenhuma tarefa"}
+
+def test_health():
+    requisicao = CLIENT.get("/health")
+    assert requisicao.status_code == 200
+    assert requisicao.json() == {"status": "OK"}
