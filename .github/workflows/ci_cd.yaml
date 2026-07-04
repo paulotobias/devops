@@ -16,4 +16,4 @@ jobs:
       - name: 'Instalação de dependencias'
         run: pip install -r requirements.txt
       - name: 'Testes unitários'
-        run pytest
+        run: pytest
