@@ -31,6 +31,16 @@ LOGGER.addHandler(file_handler)
 # IMPORTANTE: Importa a biblioteca 'requests', que serve para fazer requisições HTTP.
 # É ela quem vai permitir que este código "ligue" e converse com o outro código (App de Notificação).
 
+METRICAS = {
+    'qtde_tarefas': 0,
+    'qtde_tarefas_pendentes': 0,
+    'qtde_tarefas_concluidas': 0,
+    'qtde_tarefas_atualizadas': 0,
+    'qtde_tarefas_removidas': 0,
+    'qtde_tarefas_removidas': 0,
+    'tempo_medio_conclusao_tarefas': 0
+
+}
 
 ##Funções 
 def nova_tarefa(id: int, titulo: str, descricao: str):
@@ -157,7 +167,7 @@ def apagar_tarefa(id: int):
     LISTA_TAREFAS.pop(indice)
 
     LOGGER.info(f"Rota DELETE '/tarefas/{id}' acessada. Tarefa id={id} removida.")
-    
+
     return {"mensagem": "OK"}
 
 @APP.get("/health", status_code=200)
