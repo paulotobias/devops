@@ -45,7 +45,7 @@ def listar_tarefas():
     # Lista tarefas (somente id e titulo)
     if len(LISTA_TAREFAS) == 0:
         return LISTA_TAREFAS
-
+    LOGGER.info("/Tarefas")
     tarefas = []
     
     for tarefa in LISTA_TAREFAS:
