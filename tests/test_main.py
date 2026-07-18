@@ -1,32 +1,31 @@
-# def soma(a, b):
-#     return 8
-
-# def test_soma_positivos():
-#     assert soma(4, 4) == 8
-
-# def test_soma_errada():
-#     assert soma(3, 7) == 10
 from fastapi.testclient import TestClient
-from app import APP
 
+from app import APP
 
 CLIENT = TestClient(APP)
 
 def criar_tarefa_mock():
     requisicao = CLIENT.post("/tarefas?id=0&titulo=tarefa&descricao=descricao-tarefa")
-    
+
 def test_index():
     requisicao = CLIENT.get("/")
+
     assert requisicao.status_code == 200
-    
+    assert requisicao.json() == "Olá, DevOps!"
 
+# Criar um teste unitário para validar se a tarefa foi criada com sucesso
+# CLIENT.post(...) (substituir pela string para criação de tarefa)
+# Verificar se o código de status é 201
+# Verificar se o retorno, quando tarefa é criada, é igual a {"mensagem": "OK"} ou conforme definido na sua API
+# Verificar se o retorno, quando a tarefa já existe, é igual a {"mensagem" : "TAREFA JÁ EXISTE"} ou conforme definido na sua API
 
-def test_put():
-    requisicao = CLIENT.post("/tarefas?id=0&titulo=tarefa&descricao=descricao")
+def test_criar_tarefa():
+    requisicao = CLIENT.post("/tarefas?id=0&titulo=tarefa&descricao=descricao-tarefa")
+
     assert requisicao.status_code == 201
-    assert requisicao.json() == {"mensagem": "OK"} 
+    assert requisicao.json() == {"mensagem": "OK"}
 
-    requisicao = CLIENT.post("/tarefas?id=0&titulo=tarefa&descricao=descricao")
+    requisicao = CLIENT.post("/tarefas?id=0&titulo=tarefa&descricao=descricao-tarefa")
     assert requisicao.status_code == 202
     assert requisicao.json()['detail'] == {"mensagem": "TAREFA JÁ EXISTE!"}
 
@@ -65,10 +64,14 @@ def test_verificar_tarefa_especifica():
     assert dados["concluido"] == False
 
     requisicao = CLIENT.get("/tarefas/5")
+    CLIENT.delete('/tarefas/0')
 
     assert requisicao.json() == {"mensagem": "Não existe nenhuma tarefa"}
 
 def test_health():
-    requisicao = CLIENT.get("/health")
-    assert requisicao.status_code == 200
-    assert requisicao.json() == {"status": "OK"}
+    req = CLIENT.get("/health")
+
+    assert req.status_code == 200
+    assert req.json() == {"mensagem": "healthy"}
+    
+ 
