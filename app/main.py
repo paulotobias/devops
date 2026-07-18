@@ -2,6 +2,16 @@ from fastapi import FastAPI
 from fastapi.exceptions import HTTPException
 
 from datetime import datetime
+import logging
+
+LOGGER = logging.getLogger("devops")
+LOGGER.setLevel(logging.INFO)
+stream_handler = logging.StreamHandler()
+file_handler   = logging.FileHandler(f"{LOGGER.name}.log", encoding='utf-8')
+formatador     = logging.Formatter(fmt="%(name)s | %(asctime)s | %(levelname)s | %(filename)s:%(lineno)s | %(message)s")
+
+stream_handler.setFormatter(formatador)
+file_handler.setFormatter(formatador)
 
 # IMPORTANTE: Importa a biblioteca 'requests', que serve para fazer requisições HTTP.
 # É ela quem vai permitir que este código "ligue" e converse com o outro código (App de Notificação).
@@ -41,7 +51,7 @@ def listar_tarefas():
     for tarefa in LISTA_TAREFAS:
         info = {"id": tarefa['id'], "titulo": tarefa['titulo']}
         tarefas.append(info)
-
+    LOGGER.info("/Tarefas")
     return tarefas
 
 @APP.get("/tarefas/{id}")
